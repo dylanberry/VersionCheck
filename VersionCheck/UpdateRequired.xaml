@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="VersionCheck.UpdateRequired">
+    <StackLayout Margin="40">
+        <Label Text="Update required. Please update the app in the App Store/Google Play" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
+    </StackLayout>
+</ContentPage>
