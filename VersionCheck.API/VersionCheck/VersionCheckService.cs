@@ -19,6 +19,8 @@ namespace VersionCheck.API.VersionCheck
         public static readonly string ApiVersionString = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         private readonly AppSettings _appSettings;
 
+        public string MinimumClientVersion => _appSettings.MinimumSupportedClientVersion;
+
         public void PerformVersionCheck(HttpRequest request)
         {
             var minimumSupportedClientVersionString = _appSettings.MinimumSupportedClientVersion;

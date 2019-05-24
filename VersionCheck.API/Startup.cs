@@ -30,9 +30,7 @@ namespace VersionCheck.API
             {
                 options.Filters.Add(typeof(ApiVersionFilter));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            //var appSettingsConfigSection = Configuration.GetSection("AppSettings");
-            //services.Configure<AppSettings>(appSettingsConfigSection);
-            //AppSettings = appSettingsConfigSection.Get<AppSettings>();
+            
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddScoped<IVersionCheckService, VersionCheckService>();
             services.AddScoped<MinimumClientVersionFilter>();

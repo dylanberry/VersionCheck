@@ -26,7 +26,29 @@ namespace VersionCheck
 
         public async void Handle_Clicked(object sender, EventArgs e)
         {
-            await GetVersionInfo();
+            await GetValues();
+        }
+
+        private async Task GetValues()
+        {
+            string result = string.Empty;
+            try
+            {
+                using (var httpClient = new HttpClient(new VersionCheckHandler { InnerHandler = new HttpClientHandler() }))
+                {
+                    result = await httpClient.GetStringAsync("http://localhost:5000/api/values");
+                }
+            }
+            catch (ClientVersionNotSupportedException)
+            {
+                await Navigation.PushModalAsync(new UpdateRequired());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                result = ex.Message;
+            }
+            await DisplayAlert("Result", result, "Done");
         }
 
         private async Task GetVersionInfo()
@@ -36,13 +58,17 @@ namespace VersionCheck
             {
                 using (var httpClient = new HttpClient(new VersionCheckHandler { InnerHandler = new HttpClientHandler() }))
                 {
-                    result = await httpClient.GetStringAsync("http://localhost:5000/api/values");
+                    result = await httpClient.GetStringAsync("http://localhost:5000/api/version");
                 }
-                await DisplayAlert("Result", result, "Done");
+                Console.WriteLine(result);
             }
             catch (ClientVersionNotSupportedException)
             {
                 await Navigation.PushModalAsync(new UpdateRequired());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
             }
         }
     }
